@@ -18,36 +18,38 @@ public class OrderReceipt {
 
     public String printReceipt() {
         StringBuilder output = new StringBuilder();
-
+        
         // print headers
         printHeaders(output);
-
+        
         // print date, bill no, customer name
-//        output.append("Date - " + order.getDate();
         printCustomerDetails(output);
-//        output.append(order.getCustomerLoyaltyNumber());
-
-        double totSalesTx = 0d;
-        double tot = 0d;
-        for (LineItem lineItem : o.getLineItems()) {
-        	// prints lineItems
-            printItem(output, lineItem);
-            // calculate sales tax @ rate of 10%
-			double salesTax = lineItem.totalAmount() * DISCOUNT;
-            totSalesTx += salesTax;
-            // calculate total amount of lineItem = price * quantity + 10 % sales tax
-            tot += lineItem.totalAmount() + salesTax;
-        }
-
-        // prints the state tax
-        pintStateTax(output, totSalesTx);
-
-        // print total amount
-        extracted(output, tot);
+        
+        calculate(output);
+        
         return output.toString();
     }
+    private void calculate(StringBuilder output) {
+    	double totSalesTx = 0d;
+    	double tot = 0d;
+    	for (LineItem lineItem : o.getLineItems()) {
+    		// prints lineItems
+    		printItem(output, lineItem);
+    		// calculate sales tax @ rate of 10%
+    		double salesTax = lineItem.totalAmount() * DISCOUNT;
+    		totSalesTx += salesTax;
+    		// calculate total amount of lineItem = price * quantity + 10 % sales tax
+    		tot += lineItem.totalAmount() + salesTax;
+    	}
+    	// prints the state tax
+    	pintStateTax(output, totSalesTx);
+    	
+    	// print total amount
+    	printTot(output, tot);
+    		
+	}
 
-	private void extracted(StringBuilder output, double tot) {
+	private void printTot(StringBuilder output, double tot) {
 		output.append(TOTTAL_AMOUNT).append('\t').append(tot);
 	}
 

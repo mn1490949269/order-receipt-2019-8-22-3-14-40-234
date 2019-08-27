@@ -3,8 +3,8 @@ package org.katas.refactoring;
 import java.util.List;
 
 public class Order {
-    String nm;
-    String addr;
+    private String nm;
+    private String addr;
     List<LineItem> li;
 
     public Order(String nm, String addr, List<LineItem> li) {
